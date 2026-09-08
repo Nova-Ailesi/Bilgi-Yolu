@@ -18,19 +18,40 @@ class StorageService {
   static late Box<AwardModel> awardsBox;
   static late Box<StoryModel> storiesBox;
 
-  /// Hive Başlatma ve Kutu Açma
+  /// Hive Başlatma ve Kutu Açma - Splash takılmasını engelleyen güvenli kayıt
   static Future<void> init() async {
-    await Hive.initFlutter();
-
-    // Adapter kayıtları
-    if (!Hive.isAdapterRegistered(0)) {
-      // Manual/Fallback adapter koruması
+    try {
+      await Hive.initFlutter();
+    } catch (e) {
+      // Hive zaten init edilmişse devam et
     }
 
-    questionBox = await Hive.openBox<QuestionModel>(questionBoxName);
-    userBox = await Hive.openBox<UserModel>(userBoxName);
-    awardsBox = await Hive.openBox<AwardModel>(awardsBoxName);
-    storiesBox = await Hive.openBox<StoryModel>(storiesBoxName);
+    // Adapter kayıtları - Kritik: Kayıt olmadan Box açılırsa splash'te takılır
+    try {
+      if (!Hive.isAdapterRegistered(0)) Hive.registerAdapter(QuestionModelAdapter());
+      if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(UserModelAdapter());
+      if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(AwardModelAdapter());
+      if (!Hive.isAdapterRegistered(3)) Hive.registerAdapter(StoryModelAdapter());
+    } catch (e) {
+      // Adapter zaten kayıtlıysa ignore
+    }
+
+    try {
+      questionBox = await Hive.openBox<QuestionModel>(questionBoxName);
+      userBox = await Hive.openBox<UserModel>(userBoxName);
+      awardsBox = await Hive.openBox<AwardModel>(awardsBoxName);
+      storiesBox = await Hive.openBox<StoryModel>(storiesBoxName);
+    } catch (e) {
+      // Box açma hatasında temizle ve yeniden dene (bozuk box)
+      await Hive.deleteBoxFromDisk(questionBoxName);
+      await Hive.deleteBoxFromDisk(userBoxName);
+      await Hive.deleteBoxFromDisk(awardsBoxName);
+      await Hive.deleteBoxFromDisk(storiesBoxName);
+      questionBox = await Hive.openBox<QuestionModel>(questionBoxName);
+      userBox = await Hive.openBox<UserModel>(userBoxName);
+      awardsBox = await Hive.openBox<AwardModel>(awardsBoxName);
+      storiesBox = await Hive.openBox<StoryModel>(storiesBoxName);
+    }
 
     // İlk açılışta varsayılan kullanıcıyı oluştur
     if (userBox.isEmpty) {

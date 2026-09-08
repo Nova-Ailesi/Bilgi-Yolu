@@ -22,23 +22,43 @@ void main() async {
     debugPrint('Firebase başlatma bilgisi: Yerel modda devam ediliyor: $e');
   }
 
-  // 2. Hive Offline NoSQL Depolama Başlatma
-  await StorageService.init();
+  // 2. Hive Offline NoSQL Depolama Başlatma - Splash'te takılmayı engelle
+  try {
+    await StorageService.init().timeout(const Duration(seconds: 5));
+  } catch (e) {
+    debugPrint('Storage init hatası (devam ediliyor): $e');
+  }
 
   // 3. İlk açılışta çevrimdışı fallback sorularını SHA-256 hash ile yükle
-  await ScraperService.loadFallbackQuestionsIfEmpty();
+  try {
+    await ScraperService.loadFallbackQuestionsIfEmpty().timeout(const Duration(seconds: 3));
+  } catch (e) {
+    debugPrint('Fallback yükleme hatası: $e');
+  }
 
-  // 4. AdMob SDK Başlatma (Rewarded + Interstitial + Banner)
-  await AdService.initialize();
+  // 4. AdMob SDK Başlatma (Rewarded + Interstitial + Banner) - Hata yutulur
+  try {
+    await AdService.initialize().timeout(const Duration(seconds: 3));
+  } catch (e) {
+    debugPrint('AdMob init hatası (devam ediliyor): $e');
+  }
 
-  // 5. Workmanager 24 Saatlik Otomatik Güncelleme Servisini Başlatma
-  await UpdateService.initialize();
+  // 5. Workmanager 24 Saatlik Otomatik Güncelleme Servisini Başlatma - Hata yutulur
+  try {
+    await UpdateService.initialize().timeout(const Duration(seconds: 3));
+  } catch (e) {
+    debugPrint('Workmanager init hatası (devam ediliyor): $e');
+  }
 
-  // 6. Uygulama açılışında otomatik senkronizasyon (2 saniye içinde arka planda başlar)
+  // 6. Uygulama açılışında otomatik senkronizasyon (2 saniye içinde arka planda başlar) - Hata yutulur
   Future.delayed(const Duration(seconds: 2), () async {
-    debugPrint('Bilgi Yolu: 2s otomatik delta senkronizasyonu başlatılıyor...');
-    final count = await ScraperService.syncQuestionsFromRemote();
-    debugPrint('Bilgi Yolu: Otomatik senkronizasyon tamamlandı ($count yeni soru).');
+    try {
+      debugPrint('Bilgi Yolu: 2s otomatik delta senkronizasyonu başlatılıyor...');
+      final count = await ScraperService.syncQuestionsFromRemote().timeout(const Duration(seconds: 10));
+      debugPrint('Bilgi Yolu: Otomatik senkronizasyon tamamlandı ($count yeni soru).');
+    } catch (e) {
+      debugPrint('Otomatik sync hatası (sessiz): $e');
+    }
   });
 
   runApp(
