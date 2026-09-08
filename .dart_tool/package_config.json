@@ -897,9 +897,39 @@
     },
     {
       "name": "workmanager",
-      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager-0.5.2",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager-0.10.10",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "workmanager_android",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager_android-0.10.9",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "workmanager_apple",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager_apple-0.9.11",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "workmanager_linux",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager_linux-0.1.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "workmanager_platform_interface",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager_platform_interface-0.10.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "workmanager_web",
+      "rootUri": "file:///C:/tmp/pub_cache/hosted/pub.dev/workmanager_web-0.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
     },
     {
       "name": "xdg_directories",
