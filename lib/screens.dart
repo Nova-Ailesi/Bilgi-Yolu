@@ -138,6 +138,33 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: ListView(
               padding: const EdgeInsets.all(16.0),
               children: [
+                // GÖRÜNÜR GÜNCELLEME KANITI - v1.0.1
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE30A17),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 6)],
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.verified, color: Colors.white, size: 18),
+                      const SizedBox(width: 8),
+                      const Expanded(
+                        child: Text(
+                          '✓ v1.0.1 Güncellendi — Splash düzeltildi + Bilge ikon yenilendi',
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                        child: const Text('YENİ', style: TextStyle(color: Color(0xFFE30A17), fontWeight: FontWeight.bold, fontSize: 10)),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
                 // Maskot ve Günlük Seri Kartı
                 _buildMascotHeader(),
                 const SizedBox(height: 16),
