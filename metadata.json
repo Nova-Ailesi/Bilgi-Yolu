@@ -1,0 +1,6 @@
+{
+  "name": "Bilgi Yolu",
+  "description": "LGS, YKS (TYT-AYT), KPSS ve Ehliyet sınavlarına hazırlanan öğrenciler için akıllı soru pratiği, bilgi kartları, deneme sınavları ve 81 il ligi sunan yeni nesil eğitim platformu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

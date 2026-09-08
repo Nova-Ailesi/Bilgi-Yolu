@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "833483152760",
+    "project_id": "bilgi-yolu-155b4",
+    "storage_bucket": "bilgi-yolu-155b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833483152760:android:9895201651",
+        "android_client_info": {
+          "package_name": "com.nova.bilgi_yolu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBilgiYoluGoogleServiceApiKey"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
