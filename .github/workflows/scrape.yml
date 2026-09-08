@@ -1,0 +1,38 @@
+name: Daily Scrape
+
+on:
+  schedule:
+    - cron: '0 3 * * *'  # Her gün 03:00 UTC
+  workflow_dispatch:  # Manuel tetikleme
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          cd scripts/scraper
+          pip install -r requirements.txt
+      
+      - name: Run scraper
+        run: |
+          cd scripts/scraper
+          python scraper.py
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add public/data/delta.json
+          git commit -m "Update questions data" || echo "No changes to commit"
+          git push
