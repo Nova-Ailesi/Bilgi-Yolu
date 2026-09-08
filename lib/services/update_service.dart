@@ -48,7 +48,7 @@ class UpdateService {
           networkType: NetworkType.connected, // Yalnızca internet varken çalış
           requiresBatteryNotLow: true, // Pil düşükken bataryayı tüketme
         ),
-        existingWorkPolicy: ExistingWorkPolicy.keep,
+        existingWorkPolicy: ExistingPeriodicWorkPolicy.keep,
       );
 
       debugPrint('UpdateService: 24 saatlik periyodik güncelleme görevi kuruldu.');

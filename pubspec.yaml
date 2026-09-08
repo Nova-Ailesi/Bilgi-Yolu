@@ -21,7 +21,7 @@ dependencies:
 
   # Network & Background Task Worker
   http: ^1.2.1
-  workmanager: ^0.5.2
+  workmanager: ^0.10.10
 
   # Monetization (Google AdMob - %100 Ücretsiz Kullanıcı Modeli)
   google_mobile_ads: ^6.0.0
